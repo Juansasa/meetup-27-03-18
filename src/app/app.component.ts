@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CartItem} from './components/shopping-cart-item/cart-item';
 import {ShoppingService} from './shopping.service';
 import {HttpResponse} from '@angular/common/http';
+import {IAlert} from './components/shopping-cart/alert';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class AppComponent {
   shoppingList: CartItem[] = [];
-  backendResponse: { message: string, type: 'error' | 'success' };
+  backendResponse: IAlert;
 
   constructor(private shoppingSvc: ShoppingService) {
   }

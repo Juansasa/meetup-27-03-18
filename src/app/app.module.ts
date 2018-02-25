@@ -6,6 +6,9 @@ import {ShoppingCartItemComponent} from './components/shopping-cart-item/shoppin
 import {FormsModule} from '@angular/forms';
 import {ShoppingCartWidgetComponent} from './components/shopping-cart-widget/shopping-cart-widget.component';
 import {ShoppingService} from './shopping.service';
+import {StoreModule} from '@ngrx/store';
+import {shoppingListReducer} from './app.redux';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -17,7 +20,11 @@ import {ShoppingService} from './shopping.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({
+      shoppingList: shoppingListReducer
+    }),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [ShoppingService],
   bootstrap: [AppComponent]
