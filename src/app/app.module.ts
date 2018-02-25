@@ -2,20 +2,19 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ShoppingCartComponent} from './components/shopping-cart/shopping-cart.component';
-import {ShoppingCartItemComponent} from './components/shopping-cart-item/shopping-cart-item.component';
 import {FormsModule} from '@angular/forms';
 import {ShoppingCartWidgetComponent} from './components/shopping-cart-widget/shopping-cart-widget.component';
 import {ShoppingService} from './shopping.service';
 import {StoreModule} from '@ngrx/store';
-import {shoppingListReducer} from './app.redux';
+import {ShoppingEffect, shoppingListReducer} from './app.redux';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ShoppingCartComponent,
-    ShoppingCartItemComponent,
     ShoppingCartWidgetComponent
   ],
   imports: [
@@ -24,7 +23,10 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     StoreModule.forRoot({
       shoppingList: shoppingListReducer
     }),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([
+      ShoppingEffect
+    ])
   ],
   providers: [ShoppingService],
   bootstrap: [AppComponent]

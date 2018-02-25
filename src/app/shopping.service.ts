@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CartItem} from './components/shopping-cart-item/cart-item';
+import {CartItem} from './components/shopping-cart/cart-item';
 import {Observable} from 'rxjs/Observable';
 import {HttpResponse} from '@angular/common/http';
 import 'rxjs/add/observable/of';

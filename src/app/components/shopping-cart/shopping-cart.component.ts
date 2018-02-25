@@ -1,23 +1,22 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CartItem} from '../shopping-cart-item/cart-item';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {CartItem} from './cart-item';
+import {IShoppingListState, RemoveItemFromCartAction, totalPriceSelector} from '../../app.redux';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.scss']
+  styleUrls: ['./shopping-cart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShoppingCartComponent {
-  @Input() shoppingItems: CartItem[] = [];
-  @Output() shoppingItemsChange = new EventEmitter<CartItem[]>();
+  @Input() shoppingItems: CartItem[];
+  $total = this.store.select(totalPriceSelector);
 
-  constructor() {
-  }
-
-  getTotal() {
-    return this.shoppingItems.reduce((total, item) => total + item.getTotalPrice(), 0);
+  constructor(private store: Store<IShoppingListState>) {
   }
 
   removeItem(itemTobeRemoved: CartItem) {
-    this.shoppingItemsChange.emit(this.shoppingItems.filter(i => i.id !== itemTobeRemoved.id));
+    this.store.dispatch(new RemoveItemFromCartAction(itemTobeRemoved));
   }
 }

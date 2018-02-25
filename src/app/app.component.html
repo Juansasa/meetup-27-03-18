@@ -1,19 +1,19 @@
 <div class="container-fluid text-right w-75">
   <div class="p-4">
-    <app-shopping-cart-widget [itemCount]="shoppingList.length"
-                              [totalPrice]="getTotal()">
+    <app-shopping-cart-widget [itemCount]="($shoppingList | async)?.length"
+                              [totalPrice]="$totalPrice | async">
     </app-shopping-cart-widget>
   </div>
 </div>
-
+{{probe()}}
 <div class="container d-flex flex-column align-items-center justify-content-center pt-5">
   <div class="alert w-100 text-center"
-       [class.alert-danger]="backendResponse.type === 'error'"
-       [class.alert-success]="backendResponse.type === 'success'"
-       *ngIf="backendResponse">{{backendResponse.message}}
+       [class.alert-danger]="($alerts | async)?.type === 'error'"
+       [class.alert-success]="($alerts | async)?.type === 'success'"
+       *ngIf="$alerts | async">{{($alerts | async)?.message}}
   </div>
 
-  <app-shopping-cart class="w-50" [(shoppingItems)]="shoppingList"></app-shopping-cart>
+  <app-shopping-cart class="w-50" [shoppingItems]="$shoppingList | async"></app-shopping-cart>
 
   <div class="mt-4 w-50 text-right">
     <button (click)="addItem()" class="btn btn-outline-primary">Add new item</button>

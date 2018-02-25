@@ -3,13 +3,14 @@
 
   <div class="list-group list-group-flush">
     <div class="list-group-item d-flex align-items-center" *ngFor="let item of shoppingItems">
-      <app-shopping-cart-item [item]="item"></app-shopping-cart-item>
-      <button class="btn btn-outline-danger btn-sm rounded-circle remove-btn"
+      <strong class="product-name">{{item.name}}</strong>
+      <span class="total-price ml-auto">{{item.price}}:-</span>
+      <button class="btn btn-outline-danger btn-sm rounded-circle ml-2"
               (click)="removeItem(item)">
         <i class="fa fa-trash-o"></i>
       </button>
     </div>
   </div>
 
-  <div class="card-footer text-muted text-right">Total: {{getTotal()}}:-</div>
+  <div class="card-footer text-muted text-right">Total: {{$total | async}}:-</div>
 </div>
